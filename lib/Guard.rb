@@ -73,7 +73,7 @@ module GuardCommands
 
       def generate_device_id()
             if @android_id.nil?
-                  hexed = Digest::SHA1.hexdigest(@steamid.to_s)
+                  hexed = Digest::SHA1.hexdigest(@steam_id.to_s)
                   res = 'android:' + [hexed[0..7],hexed[8..11],hexed[12..15],hexed[16..19],hexed[20..31]].join('-')
                   @android_id = res
                   return res

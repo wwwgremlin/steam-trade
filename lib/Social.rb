@@ -1,40 +1,38 @@
 
 
 module SocialCommands
-
-
       def send_friend_request(target)
-            raise "you must be logged in to send a friend request" if @loggedin == false
+            raise "you must be logged in to send a friend request" if @logged_in == false
 
             steamid,token = verify_profileid_or_trade_link_or_steamid(target)
             @session.post('https://steamcommunity.com/actions/AddFriendAjax', {
                               "accept_invite" => 0,
-                              "sessionID" =>  sessionid_cookie(),
+                              "sessionID" =>  session_id_cookie(),
                               "steamid" => steamid
                         })
 
       end
 
       def accept_friend_request(target)
-            raise "you must be logged in to accept a friend request" if @loggedin == false
+            raise "you must be logged in to accept a friend request" if @logged_in == false
 
             steamid,token = verify_profileid_or_trade_link_or_steamid(target)
 
             @session.post('https://steamcommunity.com/actions/AddFriendAjax', {
                               "accept_invite" => 1,
-                              "sessionID" => sessionid_cookie(),
+                              "sessionID" => session_id_cookie(),
                               "steamid" => steamid
                         })
 
       end
 
       def remove_friend(target)
-            raise "you must be logged in to remove a friend" if @loggedin == false
+            raise "you must be logged in to remove a friend" if @logged_in == false
 
             steamid,token = verify_profileid_or_trade_link_or_steamid(target)
 
            @session.post('https://steamcommunity.com/actions/RemoveFriendAjax', {
-                              "sessionID" =>  sessionid_cookie(),
+                              "sessionID" =>  session_id_cookie(),
                               "steamid" => steamid
                         })
 

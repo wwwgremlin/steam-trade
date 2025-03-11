@@ -37,7 +37,7 @@ module ConfirmationCommands
             android_id = generate_device_id() # SIXTH other  FILE FINISHED
             res = {
                   'p' => android_id,
-                  'a' => @steamid,
+                  'a' => @steam_id,
                   'k' => confirmation_key,
                   't' => timestamp,
                   'm' => 'android',

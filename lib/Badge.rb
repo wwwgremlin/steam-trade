@@ -1,15 +1,15 @@
 module BadgeCommands
 
-      def sets_count(steamid = @steamid, use_nonmarketable = true)
+      def sets_count(steamid = @steam_id, use_nonmarketable = true)
             if steamid == nil
                   output "no steamid specified"
                   return
             end
 
-            if [TrueClass,FalseClass].include?(steamid.class) && @steamid != nil
+            if [TrueClass,FalseClass].include?(steamid.class) && @steam_id != nil
                   use_nonmarketable = steamid
-                  steamid = @steamid
-            elsif [TrueClass,FalseClass].include?(steamid.class) && @steamid == nil
+                  steamid = @steam_id
+            elsif [TrueClass,FalseClass].include?(steamid.class) && @steam_id == nil
                   raise "You are not logged in and did not specify a steamid"
             end
 
@@ -67,7 +67,7 @@ module BadgeCommands
                   end
             }
 
-            bigdata = JSON.parse(File.read("#{@libdir}blueprints/byappid.json",:external_encoding => 'utf-8',:internal_encoding => 'utf-8'))
+            bigdata = JSON.parse(File.read("#{@lib_dir}blueprints/byappid.json", :external_encoding => 'utf-8', :internal_encoding => 'utf-8'))
 
             counted = {}
 
@@ -123,7 +123,7 @@ module BadgeCommands
 
             pag = session.get('http://cdn.steam.tools/data/set_data.json')
             data = JSON.parse(pag.content)
-            old = JSON.parse(File.read("#{@libdir}blueprints/byappid.json" ,:external_encoding => 'utf-8',:internal_encoding => 'utf-8'))
+            old = JSON.parse(File.read("#{@lib_dir}blueprints/byappid.json" , :external_encoding => 'utf-8', :internal_encoding => 'utf-8'))
 
             newapps = []
             data["sets"].each { |set|
@@ -150,12 +150,12 @@ module BadgeCommands
                         full_data = card
 
                         old[app] = full_data
-                        File.open("#{@libdir}blueprints/byappid.json", 'w:UTF-8') {|f| f.puts old.to_json}
+                        File.open("#{@lib_dir}blueprints/byappid.json", 'w:UTF-8') {|f| f.puts old.to_json}
 
                         progress = progress + 1
                         output "#{progress} / #{get.length} done, error = #{error}"
                   rescue Exception => e
-                        File.open("#{@libdir}blueprints/byappid.json", 'w:UTF-8') {|f| f.puts old.to_json}
+                        File.open("#{@lib_dir}blueprints/byappid.json", 'w:UTF-8') {|f| f.puts old.to_json}
                         error = error + 1
                         progress = progress + 1
                         output "#{progress} / #{get.length} done, error = #{error}"
@@ -180,7 +180,7 @@ module BadgeCommands
             end
 
 
-             bigdata = JSON.parse(File.read("#{@libdir}blueprints/byappid.json",:external_encoding => 'utf-8',:internal_encoding => 'utf-8'))
+             bigdata = JSON.parse(File.read("#{@lib_dir}blueprints/byappid.json", :external_encoding => 'utf-8', :internal_encoding => 'utf-8'))
             eachappidsets = eachappidsets.sort_by do |k,v|
               v
             end

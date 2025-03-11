@@ -34,14 +34,14 @@ module TradeAPI
       end
 
       def accept_trade_offer(trade_offer_id)
-            raise "You are not logged in " if @loggedin == false
+            raise "You are not logged in " if @logged_in == false
             trade = get_trade_offer(trade_offer_id)
             trade_offer_state = trade["offer"]['trade_offer_state']
             raise "Cannot accept trade #{trade_offer_id}" if trade_offer_state != OfferState::Active
 
 
             partner = trade["offer"]['accountid_other']
-            session_id = sessionid_cookie()
+            session_id = session_id_cookie()
             accept_url = "https://steamcommunity.com" + '/tradeoffer/' + trade_offer_id + '/accept'
             params = {'sessionid'=> session_id,
                                     'tradeofferid'=> trade_offer_id,
